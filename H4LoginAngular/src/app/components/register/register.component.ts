@@ -8,24 +8,24 @@ import { FormBuilder, FormGroup } from "@angular/forms";
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent implements OnInit {
-  userForm: FormGroup;
 
-  constructor(private http: HttpClient, private forms: FormBuilder) {
-    this.userForm  = this.forms.group({
+  form: FormGroup;
+
+  constructor(private http: HttpClient, private formbuilder: FormBuilder) {
+    this.form = this.formbuilder.group({
       username: [''],
       password: [''],
     });
    }
 
   ngOnInit(): void {
-  
   }
-  onSubmit()
-  {
-    var formData: any = new FormData();
-    formData.append("username", this.userForm.get('username'));
-    formData.append("password", this.userForm.get('password'));
-    this.http.post('https://localhost:7145/Signup', formData)
+  onSubmit() {
+    var formdata: any = new FormData();
+    formdata.append('username', this.form.get('username')!.value);
+    formdata.append('password', this.form.get('password')!.value);
+    this.http.post('api/Login/Signup', formdata)
     .subscribe((respone)=> console.log(respone))
   }
+  
 }

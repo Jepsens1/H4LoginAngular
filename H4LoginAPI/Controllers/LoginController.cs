@@ -10,13 +10,13 @@ namespace H4LoginAPI.Controllers
 
         LoginManager loginManager = new LoginManager(new CryptoService());
 
-        [Route("/Signup")]
+        [Route("[action]")]
         [HttpPost]
-        public IActionResult SignUp(string username, string password)
+        public IActionResult SignUp([FromForm] string username, [FromForm] string password)
         {
             try
             {
-                return Ok(loginManager.Register(username, password));
+                return Ok(loginManager.Register(username,password));
             }
             catch (Exception e)
             {
@@ -24,9 +24,9 @@ namespace H4LoginAPI.Controllers
                 return Problem(e.Message);
             }
         }
-        [Route("/SignIn")]
+        [Route("[action]")]
         [HttpPost]
-        public IActionResult Login(string username, string password)
+        public IActionResult Login([FromForm]string username, [FromForm]string password)
         {
             try
             {
