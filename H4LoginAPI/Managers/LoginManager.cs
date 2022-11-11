@@ -40,7 +40,7 @@ namespace H4LoginAPI.Managers
                 }
                 if (_crypto.Verify(user.Password, password, Convert.FromBase64String(user.Salt)))
                 {
-
+                    //Updating the user password and salt when we can verify login
                     byte[] salt = _crypto.GenerateSalt();
                     _dbaccess.UpdatePassWord(username, Convert.ToBase64String(_crypto.CreateHash(password, salt)), Convert.ToBase64String(salt));
                     return "Login Sucess";
